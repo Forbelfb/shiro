@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfb.shiro.mapper.PermissionMapper">
+    <select id="findPermission"  parameterType="java.util.List" resultType="com.lfb.shiro.entity.Permission" >
+        select p.* from permission p left join role_permission rp on rp.pid=p.id where rp.rid in
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+        #{item}
+        </foreach>
+         group by p.id
+    </select>
+
+    <!--<select id="findPermission" resultType="com.lfb.shiro.entity.Permission">-->
+        <!--select p.* from permission p where p.id=1-->
+    <!--</select>-->
+</mapper>
